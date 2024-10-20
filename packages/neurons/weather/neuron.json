@@ -1,7 +1,7 @@
 {
   "name": "weather",
   "version": "1.0.0",
-  "description": "Simple weather plugin",
+  "description": "Simple weather neuron",
   "pages": [
     {
       "name": "home",

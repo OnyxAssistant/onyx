@@ -29,3 +29,7 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Plugins
+packages/plugins/*
+!packages/plugins/package.json

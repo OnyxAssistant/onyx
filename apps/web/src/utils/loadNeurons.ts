@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ComponentType } from 'react';
 import dynamic from 'next/dynamic';
 
-export interface Plugin {
+export interface Neuron {
   name: string;
   version: string;
   description: string;
@@ -23,13 +23,13 @@ export interface Plugin {
   }[];
 }
 
-export async function loadPlugins(): Promise<Plugin[]> {
-  const pluginsDir = path.join(process.cwd(), '..', '..', 'packages', 'plugins');
-  const plugins: Plugin[] = [];
+export async function loadNeurons(): Promise<Neuron[]> {
+  const neuronsDir = path.join(process.cwd(), '..', '..', 'packages', 'neurons');
+  const neurons: Neuron[] = [];
 
-  for (const pluginName of fs.readdirSync(pluginsDir)) {
-    const pluginDir = path.join(pluginsDir, pluginName);
-    const configPath = path.join(pluginDir, 'plugin.json');
+  for (const neuronName of fs.readdirSync(neuronsDir)) {
+    const neuronDir = path.join(neuronsDir, neuronName);
+    const configPath = path.join(neuronDir, 'neuron.json');
 
     if (fs.existsSync(configPath)) {
       const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
@@ -52,7 +52,7 @@ export async function loadPlugins(): Promise<Plugin[]> {
         for (const page of config.pages) {
           if (page.name && page.path) {
             const pagePath = path.join('pages', page.name);
-            pages.push({ path: page.path, component: dynamic(() => import(`@onyx/plugins/${pluginName}/${pagePath}`)) });
+            pages.push({ path: page.path, component: dynamic(() => import(`@onyx/neurons/${neuronName}/${pagePath}`)) });
           }
         }
       }
@@ -60,7 +60,7 @@ export async function loadPlugins(): Promise<Plugin[]> {
       // Load api
       if (config.api && Array.isArray(config.api)) {
         for (const apiConfig of config.api) {
-          const handler = await import(`@onyx/plugins/${pluginName}/api/${apiConfig.name}`);
+          const handler = await import(`@onyx/neurons/${neuronName}/api/${apiConfig.name}`);
           api.push({ 
             path: apiConfig.path, 
             name: apiConfig.name, 
@@ -76,14 +76,14 @@ export async function loadPlugins(): Promise<Plugin[]> {
         }
       }
 
-      const plugin: Plugin = {
+      const neuron: Neuron = {
         ...config,
         pages,
         api
       };
-      plugins.push(plugin);
+      neurons.push(neuron);
     }
   }
 
-  return plugins;
+  return neurons;
 }

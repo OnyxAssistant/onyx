@@ -1,21 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { loadPlugins } from '@/utils/loadPlugins';
+import { loadNeurons } from '@/utils/loadNeurons';
 
 async function handleRequest(request: NextRequest, { params }: { params: { path: string[] } }) {
-  const plugins = await loadPlugins();
-  const pluginName = params.path[0];
+  const neurons = await loadNeurons();
+  const neuronName = params.path[0];
 
-  const plugin = plugins.find((p) => p.name === pluginName);
+  const neuron = neurons.find((n) => n.name === neuronName);
 
-  if (!plugin) {
-    return NextResponse.json({ message: 'Plugin not found' }, { status: 404 });
+  if (!neuron) {
+    return NextResponse.json({ message: 'Neuron not found' }, { status: 404 });
   }
 
   const apiPath = `/${params.path.slice(1).join('/')}` || '/';
-  const apiHandler = plugin.api.find(api => api.path === apiPath);
+  const apiHandler = neuron.api.find(api => api.path === apiPath);
 
   if (!apiHandler) {
-    return NextResponse.json({ message: 'Plugin API not found' }, { status: 404 });
+    return NextResponse.json({ message: 'Neuron API not found' }, { status: 404 });
   }
 
   const method = request.method as keyof typeof apiHandler.handler;
