@@ -1,0 +1,18 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "Simple weather plugin",
+  "pages": [
+    {
+      "name": "home",
+      "path": "/"
+    }
+  ],
+  "api": [
+    {
+      "name": "weather",
+      "method": "GET",
+      "path": "/get"
+    }
+  ]
+}

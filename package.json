@@ -1,0 +1,14 @@
+{
+  "name": "onyx",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "yarn workspace @onyx/web dev",
+    "build": "yarn workspace @onyx/web build",
+    "start": "yarn workspace @onyx/web start"
+  },
+  "packageManager": "yarn@4.5.0"
+}
