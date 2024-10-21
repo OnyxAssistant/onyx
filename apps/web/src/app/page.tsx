@@ -1,10 +1,17 @@
-import { NeuronList } from "@/components/neuron-list";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+import { getCurrentUser } from "@/lib/session";
+
+export default async function Home() {
+  const user = await getCurrentUser();
+
+  if (user) {
+    redirect("/dashboard");
+  }
 
   return (
     <div>
-      <NeuronList />
+      <p>Home</p>
     </div>
   );
 }
