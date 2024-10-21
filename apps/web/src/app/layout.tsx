@@ -1,11 +1,12 @@
-import "@/styles/globals.css";
+import "@onyx/ui/styles/globals.css";
 
 import type { Viewport } from "next";
 import { fontHeading, fontSans, fontUrban } from "@/assets/fonts";
 import { ThemeProvider } from "next-themes";
+import Providers from "../components/providers";
 
-import { cn } from "@/lib/utils";
-import { Toaster } from "@/components/ui/toaster";
+import { cn } from "@onyx/ui/lib/utils";
+import { Toaster } from "@onyx/ui";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -36,8 +37,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-            {children}
-            <Toaster />
+          <Providers>{children}</Providers>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

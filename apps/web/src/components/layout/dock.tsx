@@ -12,23 +12,23 @@ import {
 } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@onyx/ui/lib/utils";
+import { Button, buttonVariants } from "@onyx/ui";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@onyx/ui";
 
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Dock, DockIcon } from "@/components/magicui/dock";
+} from "@onyx/ui";
+import { Dock, DockIcon } from "@onyx/ui";
 import { Icons } from "@/components/shared/icons";
 
 import { UserAccountNav } from "./user-account-nav";

@@ -6,9 +6,9 @@ import { useTheme } from "next-themes";
 import { ThreeDots } from "react-loader-spinner";
 import { Drawer } from "vaul";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@onyx/ui/lib/utils";
 import useMediaQuery from "@/hooks/use-media-query";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@onyx/ui";
 
 interface ModalProps {
   children: React.ReactNode;

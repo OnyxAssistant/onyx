@@ -5,21 +5,18 @@ import {
   LogOut,
   User as UserIcon,
 } from "lucide-react";
-import Image from "next/image";
-import logo from "@/assets/img/logo_white.png";
-
-import { Button } from "@/components/ui/button";
 
 import type { User } from "next-auth";
 import { signOut } from "next-auth/react";
 
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@onyx/ui";
 
 import { dashboardConfig } from "@/config/dashboard";
 import { Icons } from "@/components/shared/icons";

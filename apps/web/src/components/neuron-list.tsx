@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { getInstalledNeurons, uninstallNeuron, installNeuron } from '@/actions/neurons'
-import { Button } from "@/components/ui/button"
+import { Button } from "@onyx/ui"
 import { Neuron, loadAvailableNeurons } from '@onyx/core/actions/neurons'
 
 export function NeuronList() {

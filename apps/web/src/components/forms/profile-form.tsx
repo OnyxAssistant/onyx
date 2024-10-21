@@ -6,9 +6,8 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@onyx/ui/lib/utils"
 import { userProfileSchema } from "@/lib/validations/user"
-import { buttonVariants } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -16,13 +15,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+  Button,
+  buttonVariants,
+  Input,
+  Label,
+  toast,
+} from "@onyx/ui"
 import { UserProfile } from "@/types/user";
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/shared/icons"
 
 import { updateUserProfile, type FormData } from "@/actions/update-user-profile"
