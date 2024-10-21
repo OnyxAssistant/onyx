@@ -19,12 +19,21 @@ async function handleRequest(request: NextRequest, { params }: { params: { path:
   }
 
   const method = request.method as keyof typeof apiHandler.handler;
-  const handler = apiHandler.handler[method];
+  const handlerPromise = apiHandler.handler();
 
-  if (handler) {
-    return handler(request);
-  } else {
-    return NextResponse.json({ message: 'Method not allowed' }, { status: 405 });
+  try {
+    const handlers = await handlerPromise;
+    const handler = handlers[method];
+
+    if (handler) {
+      // @ts-expect-error - TODO: fix this
+      return handler(request);
+    } else {
+      return NextResponse.json({ message: 'Method not allowed' }, { status: 405 });
+    }
+  } catch (error) {
+    console.error('Error loading handler:', error);
+    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
   }
 }
 

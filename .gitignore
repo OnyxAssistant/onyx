@@ -30,6 +30,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Plugins
-packages/plugins/*
-!packages/plugins/package.json
+# Neurons
+packages/neurons/*
+!packages/neurons/package.json

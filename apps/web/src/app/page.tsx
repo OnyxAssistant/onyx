@@ -1,5 +1,5 @@
 
-import NeuronList from "@/components/NeuronList";
+import { NeuronList } from "@/components/neuron-list";
 
 export default function Home() {
   return (
