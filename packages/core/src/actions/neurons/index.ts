@@ -15,6 +15,15 @@ export interface Neuron {
   name: string;
   description: string;
   url: string;
+  nav: {
+    title: string;
+    url: string;
+    icon: string;
+    items: {
+      title: string;
+      url: string;
+    }[];
+  }[];
 }
 
 export async function loadAvailableNeurons(): Promise<Neuron[]> {
@@ -49,7 +58,15 @@ export async function getInstalledNeurons(): Promise<Neuron[]> {
             slug: manifest.slug,
             name: manifest.name,
             description: manifest.description,
-            url: `/dashboard/neuron/${manifest.slug}/`
+            url: `/dashboard/neuron/${manifest.slug}/`,
+            nav: (manifest.nav || []).map((item: any) => ({
+              ...item,
+              url: `/dashboard/neuron/${manifest.slug}${item.url}`,
+              items: (item.items || []).map((subItem: any) => ({
+                ...subItem,
+                url: `/dashboard/neuron/${manifest.slug}${subItem.url}`
+              }))
+            }))
           };
           
           installedNeurons.push(neuron);

@@ -5,13 +5,14 @@
   "tsx": true,
   "tailwind": {
     "config": "tailwind.config.ts",
-    "css": "./styles/globals.css",
+    "css": "./src/styles/globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
   },
   "aliases": {
     "components": "@onyx/ui/components",
-    "utils": "@onyx/ui/lib/utils"
+    "utils": "@onyx/ui/lib/utils",
+    "hooks": "@onyx/ui/hooks"
   }
 }

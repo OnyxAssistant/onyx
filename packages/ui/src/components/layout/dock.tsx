@@ -13,6 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "@onyx/ui";
 
+import { SidebarTrigger } from "@onyx/ui/components/ui/sidebar";
+
 import {
   Tooltip,
   TooltipContent,
@@ -22,9 +24,8 @@ import {
 import { Dock, DockIcon } from "@onyx/ui";
 import Icons from "@onyx/ui/icons";
 
-import { UserAccountNav } from "./user-account-nav";
 
-export default function DockComponent({ user }: { user: any }) {
+export default function DockComponent() {
   const { theme, setTheme } = useTheme();
 
   return (
@@ -38,7 +39,7 @@ export default function DockComponent({ user }: { user: any }) {
                   href="/"
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "sm" }),
-                    "size-12 rounded-full",
+                    "size-12 rounded-full"
                   )}
                 >
                   <Icons.home className="size-4" />
@@ -56,7 +57,7 @@ export default function DockComponent({ user }: { user: any }) {
                   href="/dashboard/store"
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "sm" }),
-                    "size-12 rounded-full",
+                    "size-12 rounded-full"
                   )}
                 >
                   <Icons.store className="size-4" />
@@ -68,24 +69,9 @@ export default function DockComponent({ user }: { user: any }) {
             </Tooltip>
           </DockIcon>
 
-          {user ? (
-            <DockIcon>
-              <UserAccountNav user={user} />
-            </DockIcon>
-          ) : (
-            <DockIcon>
-              <Link href="/login">
-                <Button
-                  className="gap-2 px-4"
-                  variant="default"
-                  size="sm"
-                  rounded="full"
-                >
-                  <Icons.user className="size-4" />
-                </Button>
-              </Link>
-            </DockIcon>
-          )}
+          <DockIcon>
+            <SidebarTrigger />
+          </DockIcon>
 
           <DockIcon>
             <Tooltip>
@@ -94,7 +80,7 @@ export default function DockComponent({ user }: { user: any }) {
                   href="#"
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "sm" }),
-                    "size-12 rounded-full",
+                    "size-12 rounded-full"
                   )}
                 >
                   <Icons.bell className="size-4" />
