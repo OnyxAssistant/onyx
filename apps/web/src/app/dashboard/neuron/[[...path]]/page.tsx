@@ -1,4 +1,4 @@
-import { loadNeurons, Neuron } from '@/utils/loadNeurons';
+import { loadNeurons, Neuron } from '@onyx/core/utils/loadNeurons';
 import dynamic from 'next/dynamic';
 
 export async function generateStaticParams() {

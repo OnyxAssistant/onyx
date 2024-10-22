@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { loadNeurons } from '@/utils/loadNeurons';
+import { loadNeurons } from '@onyx/core/utils/loadNeurons';
 
 async function handleRequest(request: NextRequest, { params }: { params: { path: string[] } }) {
   const neurons = await loadNeurons();

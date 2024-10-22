@@ -1,5 +1,3 @@
-// tailwind config is required for editor support
-
 import type { Config } from "tailwindcss";
 import uiConfig from "@onyx/ui/tailwind.config";
 

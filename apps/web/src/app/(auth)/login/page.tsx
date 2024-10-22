@@ -3,10 +3,10 @@ import Link from "next/link"
 import { cn } from "@onyx/ui/lib/utils"
 import { buttonVariants } from "@onyx/ui"
 import Image from "next/image"
-import { Icons } from "@/components/shared/icons"
-import { UserAuthForm } from "@/components/forms/user-auth-form"
+import Icons from "@onyx/ui/icons"
+import { UserAuthForm } from "@onyx/ui/components/forms/user-auth-form"
 import { Suspense } from "react"
-import logo from "@/assets/img/logo.png"
+import logo from "@onyx/ui/assets/img/logo.png"
 
 export const metadata: Metadata = {
   title: "Login",

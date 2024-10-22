@@ -1,5 +1,5 @@
-import { StoreForm } from '@/components/store-form'
-import { NeuronList } from '@/components/neuron-list'
+import { StoreForm } from '@onyx/ui/components/store-form'
+import { NeuronList } from '@onyx/ui/components/neuron-list'
 
 export default function StorePage() {
 

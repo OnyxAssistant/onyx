@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
-import { getCurrentUser } from "@/lib/session";
-import Dock from "@/components/layout/dock";
-import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
+import { getCurrentUser } from "@onyx/core/lib/session";
+import Dock from "@onyx/ui/components/layout/dock";
+import MaxWidthWrapper from "@onyx/ui/components/shared/max-width-wrapper";
 
 interface DashboardLayoutProps {
   children?: React.ReactNode;

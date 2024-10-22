@@ -12,7 +12,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "typeRoots": ["./types", "../../packages/core/src/types"],
     "plugins": [
       {
         "name": "next"
@@ -20,7 +19,6 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@onyx/*": ["../../packages/*"],
       "@onyx/ui/*": ["../../packages/ui/src/*"],
       "@onyx/ui": ["../../packages/ui/src/index.tsx"],
       "@onyx/core/*": ["../../packages/core/src/*"],

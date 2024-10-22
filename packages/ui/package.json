@@ -14,13 +14,10 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "lint": "eslint \"**/*.ts*\"",
-    "test": "echo 'all packages:ui tests passed!'",
     "ui:add": "npx shadcn-ui@latest add"
   },
   "private": true,
   "dependencies": {
-    "@onyx/tailwind-config": "*",
     "@radix-ui/react-accessible-icon": "^1.0.3",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
@@ -58,15 +55,13 @@
     "react": "^18",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
-    "tsconfig": "*"
+    "tsup": "^8.3.0"
   },
   "devDependencies": {
-    "@onyx/tailwind-config": "*",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "tsconfig": "*",
     "typescript": "^5"
   }
 }

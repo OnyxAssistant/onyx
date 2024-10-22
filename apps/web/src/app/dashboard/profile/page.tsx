@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
-import { getUserById } from "@/lib/user";
+import { getUserById } from "@onyx/core/lib/user";
 
-import { DashboardHeader } from "@/components/dashboard/header";
-import { DashboardShell } from "@/components/dashboard/shell";
-import { ProfileForm } from "@/components/forms/profile-form";
-import { UserProfile } from "@/types/user";
-import { getCurrentUser } from "@/lib/session";
+import { DashboardHeader } from "@onyx/ui/components/dashboard/header";
+import { DashboardShell } from "@onyx/ui/components/dashboard/shell";
+import { ProfileForm } from "@onyx/ui/components/forms/profile-form";
+import { UserProfile } from "@onyx/core/types/user";
+import { getCurrentUser } from "@onyx/core/lib/session";
 
 export default async function SettingsPage() {
   const currentUser = await getCurrentUser();

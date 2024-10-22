@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@onyx/core/lib/session";
 
 export default async function Home() {
   const user = await getCurrentUser();

@@ -1,9 +1,8 @@
 import "@onyx/ui/styles/globals.css";
 
 import type { Viewport } from "next";
-import { fontHeading, fontSans, fontUrban } from "@/assets/fonts";
+import { fontHeading, fontSans, fontUrban } from "@onyx/ui/assets/fonts";
 import { ThemeProvider } from "next-themes";
-import Providers from "../components/providers";
 
 import { cn } from "@onyx/ui/lib/utils";
 import { Toaster } from "@onyx/ui";
@@ -37,7 +36,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          <Providers>{children}</Providers>
+            {children}
           <Toaster />
         </ThemeProvider>
       </body>

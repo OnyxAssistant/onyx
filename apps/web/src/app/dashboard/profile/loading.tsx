@@ -1,6 +1,6 @@
-import { CardSkeleton } from "@/components/shared/card-skeleton"
-import { DashboardHeader } from "@/components/dashboard/header"
-import { DashboardShell } from "@/components/dashboard/shell"
+import { CardSkeleton } from "@onyx/ui/components/shared/card-skeleton"
+import { DashboardHeader } from "@onyx/ui/components/dashboard/header"
+import { DashboardShell } from "@onyx/ui/components/dashboard/shell"
 
 export default function DashboardSettingsLoading() {
   return (
