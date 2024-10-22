@@ -1,10 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from "@onyx/ui"
 import { Neuron, loadAvailableNeurons, getInstalledNeurons, uninstallNeuron, installNeuron } from '@onyx/core/actions/neurons'
 
 export function NeuronList() {
-  const [installedNeurons, setInstalledNeurons] = useState<string[]>([])
+  const router = useRouter()
+  const [installedNeurons, setInstalledNeurons] = useState<Neuron[]>([])
   const [availableNeurons, setAvailableNeurons] = useState<Neuron[]>([])
 
   useEffect(() => {
@@ -22,9 +24,9 @@ export function NeuronList() {
     fetchAvailableNeurons(neurons)
   }
 
-  const fetchAvailableNeurons = async (installed: string[]) => {
+    const fetchAvailableNeurons = async (installed: Neuron[]) => {
     const neurons = await loadAvailableNeurons()
-    const filteredNeurons = neurons.filter(neuron => !installed.includes(neuron.slug))
+    const filteredNeurons = neurons.filter(neuron => !installed.some(n => n.slug === neuron.slug))
     setAvailableNeurons(filteredNeurons)
   }
 
@@ -44,7 +46,7 @@ export function NeuronList() {
     const url = typeof neuron === 'string' ? '' : neuron.url
 
     return (
-      <li key={name} className="border p-4 rounded-lg">
+      <li key={name} className="border p-4 rounded-lg cursor-pointer" onClick={() => router.push(url)}>
         <h3 className="text-lg font-semibold">{name}</h3>
         <p className="text-sm text-gray-600 mb-2">{description}</p>
         {isInstalled ? (
@@ -62,7 +64,7 @@ export function NeuronList() {
         <h2 className="text-xl font-semibold mb-4">Installed Neurons</h2>
         <ul className="space-y-4">
           {installedNeurons.map(neuron => renderNeuronCard(
-            availableNeurons.find(n => n.name === neuron) || neuron,
+            availableNeurons.find(n => n.slug === neuron.slug) || neuron,
             true
           ))}
         </ul>

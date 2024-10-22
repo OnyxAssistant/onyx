@@ -22,6 +22,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@onyx/*": ["../../packages/*"],
       "@onyx/ui/*": ["./src/*"],
       "@onyx/ui": ["./src/index.tsx"],
       "@onyx/core/*": ["../../packages/core/src/*"]

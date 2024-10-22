@@ -6,7 +6,7 @@ export async function generateStaticParams() {
     const neurons = await loadNeurons();
     return neurons.flatMap((neuron) => 
       neuron.pages.map((page) => ({ 
-        path: [neuron.name, ...page.path.split('/').filter(Boolean)]
+        path: [neuron.slug, ...page.path.split('/').filter(Boolean)]
       }))
     );
   } catch (error) {
@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 export default async function NeuronPage({ params }: { params: { path: string[] } }) {
   try {
     const neurons = await loadNeurons();
-    const neuron = neurons.find((n: Neuron) => n.name === params.path[0]);
+    const neuron = neurons.find((n: Neuron) => n.slug === params.path[0]);
 
     if (!neuron) {
       return <div>Neuron not found</div>;
@@ -32,7 +32,7 @@ export default async function NeuronPage({ params }: { params: { path: string[] 
       return <div>Route not available</div>;
     }
 
-    const DynamicNeuronComponent = dynamic(() => import(`@onyx/neurons/${neuron.name}/pages/${page.componentName}`), {
+    const DynamicNeuronComponent = dynamic(() => import(`@onyx/neurons/${neuron.slug}/pages/${page.componentName}`), {
       loading: () => <p>Loading...</p>,
     });
 

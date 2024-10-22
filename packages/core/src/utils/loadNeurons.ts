@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export interface Neuron {
   name: string;
+  slug: string;
   version: string;
   description: string;
   pages: { path: string, componentName: string }[];

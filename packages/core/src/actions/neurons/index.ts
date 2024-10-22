@@ -4,6 +4,7 @@ import path from "path";
 import { exec } from "child_process";
 import { promisify } from "util";
 import { neuronManager } from '@onyx/core/utils/neuronManager'
+import { Neuron as NeuronType } from '@onyx/core/utils/loadNeurons';
 
 const execAsync = promisify(exec);
 
@@ -32,10 +33,33 @@ export async function loadAvailableNeurons(): Promise<Neuron[]> {
   }
 }
 
-export async function getInstalledNeurons(): Promise<string[]> {
+export async function getInstalledNeurons(): Promise<Neuron[]> {
   try {
-    const neurons = await fs.readdir(NEURONS_DIR);
-    return neurons.filter((neuron) => !neuron.startsWith(".") && !neuron.endsWith(".json"));
+    const neuronFolders = await fs.readdir(NEURONS_DIR);
+    const installedNeurons: Neuron[] = [];
+
+    for (const neuronFolder of neuronFolders) {
+      if (!neuronFolder.startsWith(".") && !neuronFolder.endsWith(".json")) {
+        const manifestPath = path.join(NEURONS_DIR, neuronFolder, "manifest.json");
+        try {
+          const manifestContent = await fs.readFile(manifestPath, 'utf-8');
+          const manifest = JSON.parse(manifestContent);
+          
+          const neuron: Neuron = {
+            slug: manifest.slug,
+            name: manifest.name,
+            description: manifest.description,
+            url: `/dashboard/neuron/${manifest.slug}/`
+          };
+          
+          installedNeurons.push(neuron);
+        } catch (error) {
+          console.error(`Error reading manifest for ${neuronFolder}:`, error);
+        }
+      }
+    }
+
+    return installedNeurons;
   } catch (error) {
     console.error("Error reading neurons directory:", error);
     return [];

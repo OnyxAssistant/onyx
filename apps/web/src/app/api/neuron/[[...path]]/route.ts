@@ -5,7 +5,7 @@ async function handleRequest(request: NextRequest, { params }: { params: { path:
   const neurons = await loadNeurons();
   const neuronName = params.path[0];
 
-  const neuron = neurons.find((n) => n.name === neuronName);
+  const neuron = neurons.find((n) => n.slug === neuronName);
 
   if (!neuron) {
     return NextResponse.json({ message: 'Neuron not found' }, { status: 404 });
