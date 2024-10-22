@@ -1,11 +1,16 @@
 import { redirect } from "next/navigation";
-import { getUserById } from "@onyx/core/lib/user";
+import { getUserById } from "@onyx/db/user";
 
-import { DashboardHeader } from "@onyx/ui/components/dashboard/header";
-import { DashboardShell } from "@onyx/ui/components/dashboard/shell";
+import { DashboardHeader, DashboardShell } from "@onyx/ui";
 import { ProfileForm } from "@onyx/ui/components/forms/profile-form";
 import { UserProfile } from "@onyx/core/types/user";
+import { constructMetadata } from "@onyx/core/utils/metadata";
 import { getCurrentUser } from "@onyx/core/lib/session";
+
+export const metadata = constructMetadata({
+  title: "Profile",
+  description: "Manage your profile",
+});
 
 export default async function SettingsPage() {
   const currentUser = await getCurrentUser();

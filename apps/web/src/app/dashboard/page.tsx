@@ -1,9 +1,13 @@
 import { redirect } from "next/navigation";
-
-import { DashboardHeader } from "@onyx/ui/components/dashboard/header";
-import { DashboardShell } from "@onyx/ui/components/dashboard/shell";
+import { Card, CardHeader, CardTitle, CardContent, DashboardHeader, DashboardShell } from "@onyx/ui";
 import Dashboard from "@onyx/ui/components/dashboard/main";
+import { constructMetadata } from "@onyx/core/utils/metadata";
 import { getCurrentUser } from "@onyx/core/lib/session";
+
+export const metadata = constructMetadata({
+  title: "Dashboard",
+  description: "Manage your dashboard",
+});
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -15,10 +19,15 @@ export default async function DashboardPage() {
 
   return (
     <DashboardShell>
-      <DashboardHeader heading="Dashboard" text=""></DashboardHeader>
-      <div>
-        <Dashboard currentUser={user} />
-      </div>
+      <DashboardHeader heading="Dashboard" text="Manage your dashboard"></DashboardHeader>
+      <Card>
+        <CardHeader>
+          <CardTitle>Dashboard</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Dashboard currentUser={user} />
+        </CardContent>
+      </Card>
     </DashboardShell>
   );
 }

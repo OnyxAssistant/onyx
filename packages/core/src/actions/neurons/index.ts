@@ -35,7 +35,7 @@ export async function loadAvailableNeurons(): Promise<Neuron[]> {
 export async function getInstalledNeurons(): Promise<string[]> {
   try {
     const neurons = await fs.readdir(NEURONS_DIR);
-    return neurons.filter((neuron) => !neuron.startsWith("."));
+    return neurons.filter((neuron) => !neuron.startsWith(".") && !neuron.endsWith(".json"));
   } catch (error) {
     console.error("Error reading neurons directory:", error);
     return [];
@@ -66,5 +66,4 @@ export async function uninstallNeuron(neuronName: string): Promise<void> {
     console.error(`Error uninstalling neuron ${neuronName}:`, error);
     throw new Error(`Failed to uninstall neuron ${neuronName}`);
   }
-  await neuronManager.reloadNeurons();
 }

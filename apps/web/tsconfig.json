@@ -24,6 +24,7 @@
       "@onyx/ui/*": ["../../packages/ui/src/*"],
       "@onyx/ui": ["../../packages/ui/src/index.tsx"],
       "@onyx/core/*": ["../../packages/core/src/*"],
+      "@onyx/db/*": ["../../packages/db/src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

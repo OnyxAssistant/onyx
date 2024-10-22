@@ -1,7 +1,10 @@
 import "./styles/globals.css";
 
-// Shadcn
+// Dashboard
+export * from "./components/dashboard/header";
+export * from "./components/dashboard/shell";
 
+// Shadcn
 export * from "./components/ui/button";
 export * from "./components/ui/accordion";
 export * from "./components/ui/alert";

@@ -1,16 +1,31 @@
-import { StoreForm } from '@onyx/ui/components/store-form'
-import { NeuronList } from '@onyx/ui/components/neuron-list'
+import { StoreForm } from '@onyx/ui/components/forms/store-form'
+import { NeuronList } from '@onyx/ui/components/neurons/neuron-list'
+import { constructMetadata } from "@onyx/core/utils/metadata";
+import { Card, CardHeader, CardTitle, CardContent, DashboardShell, DashboardHeader } from "@onyx/ui"
+
+export const metadata = constructMetadata({
+  title: "Neuron Store",
+  description: "Install and manage neurons",
+});
 
 export default function StorePage() {
-
   return (
-    <div className="container mx-auto py-8 space-y-8">
-      <h1 className="text-3xl font-bold mb-6">Neuron Store</h1>
-      <div>
-        <h2 className="text-2xl font-semibold mb-4">Install from URL</h2>
-        <StoreForm />
-      </div>
-      <NeuronList />
-    </div>
+    <DashboardShell>
+      <DashboardHeader heading="Neuron Store" text="Install and manage neurons"></DashboardHeader>
+      <Card>
+        <CardHeader>
+          <CardTitle>Neuron Management</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
+            <div>
+              <h2 className="text-xl font-semibold mb-4">Install from URL</h2>
+              <StoreForm />
+            </div>
+            <NeuronList />
+          </div>
+        </CardContent>
+      </Card>
+    </DashboardShell>
   )
 }
