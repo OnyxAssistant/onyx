@@ -22,69 +22,69 @@ export interface Neuron {
   }[];
 }
 
-export async function loadNeurons(): Promise<Neuron[]> {
+export interface NeuronManifest {
+  name: string;
+  slug: string;
+  version: string;
+  description: string;
+  pages?: { name: string, path: string }[];
+  api?: { path: string, name: string, method: string }[];
+}
+
+function loadNeuronManifest(neuronDir: string): NeuronManifest | null {
+  const configPath = path.join(neuronDir, 'manifest.json');
+  if (fs.existsSync(configPath)) {
+    return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+  }
+  return null;
+}
+
+export function getAllNeuronManifests(): NeuronManifest[] {
   const neuronsDir = path.join(process.cwd(), '..', '..', 'packages', 'neurons');
-  const neurons: Neuron[] = [];
+  const manifests: NeuronManifest[] = [];
 
   for (const neuronName of fs.readdirSync(neuronsDir)) {
     const neuronDir = path.join(neuronsDir, neuronName);
-    const configPath = path.join(neuronDir, 'manifest.json');
-
-    if (fs.existsSync(configPath)) {
-      const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-      const pages: { path: string, componentName: string }[] = [];
-      const api: { 
-        path: string, 
-        name: string, 
-        method: string, 
-        handler: () => Promise<{
-          GET?: (request: NextRequest) => Promise<NextResponse>,
-          POST?: (request: NextRequest) => Promise<NextResponse>,
-          PATCH?: (request: NextRequest) => Promise<NextResponse>,
-          PUT?: (request: NextRequest) => Promise<NextResponse>,
-          DELETE?: (request: NextRequest) => Promise<NextResponse>
-        }>
-      }[] = [];
-
-      // Load pages
-      if (config.pages && Array.isArray(config.pages)) {
-        for (const page of config.pages) {
-          if (page.name && page.path) {
-            pages.push({ 
-              path: page.path, 
-              componentName: page.name
-            });
-          }
-        }
-      }
-    
-      // Load api
-      if (config.api && Array.isArray(config.api)) {
-        for (const apiConfig of config.api) {
-          api.push({ 
-            path: apiConfig.path, 
-            name: apiConfig.name, 
-            method: apiConfig.method, 
-            handler: () => import(`@onyx/neurons/${neuronName}/api/${apiConfig.name}`)
-              .then(handler => ({
-                GET: handler.GET,
-                POST: handler.POST,
-                PATCH: handler.PATCH,
-                PUT: handler.PUT,
-                DELETE: handler.DELETE
-              }))
-              .catch(() => ({}))
-          });
-        }
-      }
-
-      const neuron: Neuron = {
-        ...config,
-        pages,
-        api
-      };
-      neurons.push(neuron);
+    const manifest = loadNeuronManifest(neuronDir);
+    if (manifest) {
+      manifests.push(manifest);
     }
+  }
+
+  return manifests;
+}
+
+export async function loadNeurons(): Promise<Neuron[]> {
+  const manifests = getAllNeuronManifests();
+  const neurons: Neuron[] = [];
+
+  for (const manifest of manifests) {
+    const pages = manifest.pages?.map(page => ({
+      path: page.path,
+      componentName: page.name
+    })) || [];
+
+    const api = manifest.api?.map(apiConfig => ({
+      path: apiConfig.path,
+      name: apiConfig.name,
+      method: apiConfig.method,
+      handler: () => import(`@onyx/neurons/${manifest.slug}/api/${apiConfig.name}`)
+        .then(handler => ({
+          GET: handler.GET,
+          POST: handler.POST,
+          PATCH: handler.PATCH,
+          PUT: handler.PUT,
+          DELETE: handler.DELETE
+        }))
+        .catch(() => ({}))
+    })) || [];
+
+    const neuron: Neuron = {
+      ...manifest,
+      pages,
+      api
+    };
+    neurons.push(neuron);
   }
 
   return neurons;

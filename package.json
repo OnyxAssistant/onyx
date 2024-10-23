@@ -9,7 +9,10 @@
   "scripts": {
     "dev": "yarn workspace @onyx/web dev",
     "build": "yarn workspace @onyx/web build",
-    "start": "yarn workspace @onyx/web start"
+    "start": "yarn workspace @onyx/web start",
+    "db:generate": "node scripts/db/generate.js",
+    "db:push": "node scripts/db/push.js",
+    "db:migrate": "node scripts/db/migrate.js"
   },
   "dependencies": {
     "react": "^18",

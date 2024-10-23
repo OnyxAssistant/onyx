@@ -20,7 +20,7 @@ export async function updateUserProfile(userId: string, data: FormData) {
 
     const { name } = userProfileSchema.parse(data);
 
-    await prisma.user.update({
+    await prisma['core'].user.update({
       where: {
         id: userId,
       },

@@ -35,11 +35,19 @@ import {
   HomeIcon,
   Store,
   Bell,
+  List,
+  Files,
+  PenLine,
+  ChartBar,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
 
 export default {
+  list: List,
+  files: Files,
+  penline: PenLine,
+  charts: ChartBar,
   home: HomeIcon,
   store: Store,
   people: Users,

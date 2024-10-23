@@ -2,7 +2,7 @@ import { prisma } from "@onyx/db";
 
 export const getUserByEmail = async (email: string) => {
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma['core'].user.findUnique({
       where: {
         email: email,
       },
@@ -20,7 +20,7 @@ export const getUserByEmail = async (email: string) => {
 
 export const getUserById = async (id: string) => {
   try {
-    const user = await prisma.user.findUnique({ where: { id }});
+    const user = await prisma['core'].user.findUnique({ where: { id }});
 
     return user;
   } catch (error) {
@@ -30,7 +30,7 @@ export const getUserById = async (id: string) => {
 
 export const getUsers = async () => {
   try {
-    const users = await prisma.user.findMany({
+    const users = await prisma['core'].user.findMany({
       orderBy: {
         name: 'asc',
       },

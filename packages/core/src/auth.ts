@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
   providers: [
     EmailProvider({
       sendVerificationRequest: async ({ identifier, url }) => {
-        const user = await prisma.user.findUnique({
+        const user = await prisma['core'].user.findUnique({
           where: {
             email: identifier,
           },
@@ -77,7 +77,7 @@ export const authOptions: NextAuthOptions = {
       return session
     },
     async jwt({ token, user }) {
-      const dbUser = await prisma.user.findFirst({
+      const dbUser = await prisma['core'].user.findFirst({
         where: {
           email: token.email,
         },

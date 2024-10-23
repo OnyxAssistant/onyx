@@ -35,3 +35,6 @@ next-env.d.ts
 # Neurons
 packages/neurons/*
 !packages/neurons/package.json
+
+# Database
+data/

@@ -11,7 +11,8 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
-    "@prisma/client": "^5.20.0"
+    "@prisma/client": "^5.20.0",
+    "@onyx/core": "*"
   },
   "devDependencies": {
     "prisma": "^5.20.0"

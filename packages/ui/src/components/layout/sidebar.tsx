@@ -75,8 +75,33 @@ export function OnyxSidebar({ user }: { user: any }) {
   useEffect(() => {
     getInstalledNeurons().then((neurons) => {
       setNeurons([defaultNav, ...neurons]);
+      const savedNeuronSlug = getCookie('activeNeuronSlug');
+      if (savedNeuronSlug) {
+        const savedNeuron = [defaultNav, ...neurons].find(n => n.slug === savedNeuronSlug);
+        if (savedNeuron) {
+          setActiveNeuron(savedNeuron);
+        }
+      }
     });
   }, []);
+
+  const handleSetActiveNeuron = (neuron: Neuron) => {
+    setActiveNeuron(neuron);
+    setCookie('activeNeuronSlug', neuron.slug);
+  };
+
+  // Helper functions to manage cookies
+  function setCookie(name: string, value: string, days = 7) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+  }
+
+  function getCookie(name: string) {
+    return document.cookie.split('; ').reduce((r, v) => {
+      const parts = v.split('=');
+      return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+    }, '');
+  }
 
   return (
     <Sidebar collapsible="icon" variant="floating">
@@ -112,7 +137,7 @@ export function OnyxSidebar({ user }: { user: any }) {
                 {neurons.map((neuron, index) => (
                   <DropdownMenuItem
                     key={neuron.slug}
-                    onClick={() => setActiveNeuron(neuron)}
+                    onClick={() => handleSetActiveNeuron(neuron)}
                     className="gap-2 p-2"
                   >
                     {neuron.name}
