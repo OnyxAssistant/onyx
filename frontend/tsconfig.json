@@ -19,9 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./neurons/**/frontend/src/*"],
-      "*": ["./frontend/node_modules/*"],
-      "@onyx/*": ["./frontend/core/*"],
+      "@/*": ["./src/*"],
+      "@onyx/*": ["./core/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

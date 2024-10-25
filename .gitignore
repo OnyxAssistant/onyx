@@ -38,3 +38,6 @@ packages/neurons/*
 
 # Database
 data/
+
+# Neurons
+neurons/*
