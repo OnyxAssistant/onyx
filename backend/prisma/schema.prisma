@@ -47,6 +47,7 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
+  image         String?
   type          String?   @default("user")
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")

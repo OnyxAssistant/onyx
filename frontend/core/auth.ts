@@ -1,19 +1,12 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { NextAuthOptions } from "next-auth"
 import EmailProvider from "next-auth/providers/email"
+import GitHubProvider from "next-auth/providers/github";
 import MagicLinkEmail from "@onyx/lib/emails/magic-link-email"
-import { prisma } from "@onyx/db"
 import { resend } from "@onyx/lib/email"
+import { AuthRestAdapter } from "@onyx/lib/auth-rest-adapter"
 
 export const authOptions: NextAuthOptions = {
-  adapter: {
-    ...PrismaAdapter(prisma),
-    createUser: async (user) => {
-      const createdUser = await PrismaAdapter(prisma).createUser!(user)
-
-      return createdUser
-    }
-  },
+  adapter: AuthRestAdapter(),
   session: {
     strategy: "jwt",
   },
@@ -23,15 +16,8 @@ export const authOptions: NextAuthOptions = {
   providers: [
     EmailProvider({
       sendVerificationRequest: async ({ identifier, url }) => {
-        const user = await prisma.user.findUnique({
-          where: {
-            email: identifier,
-          },
-          select: {
-            name: true,
-            emailVerified: true,
-          },
-        });
+        const adapter = AuthRestAdapter();
+        const user = await adapter.getUserByEmail(identifier);
 
         const userVerified = user?.emailVerified ? true : false;
         const authSubject = userVerified ? "Sign-in link for Onyx" : "Activate your account";
@@ -64,6 +50,10 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
+    }),
   ],
   callbacks: {
     async session({ token, session }) {
@@ -77,11 +67,8 @@ export const authOptions: NextAuthOptions = {
       return session
     },
     async jwt({ token, user }) {
-      const dbUser = await prisma.user.findFirst({
-        where: {
-          email: token.email,
-        },
-      })
+      const adapter = AuthRestAdapter();
+      const dbUser = await adapter?.getUserByEmail(token.email as string);
 
       if (!dbUser) {
         if (user) {

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getUserById } from "@onyx/db/user";
+import { getProfile } from "@onyx/api/user";
 
 import { DashboardHeader, DashboardShell } from "@onyx/ui";
 import { ProfileForm } from "@/components/forms/profile-form";
@@ -19,7 +19,7 @@ export default async function SettingsPage() {
     redirect("/login");
   }
 
-  const user = await getUserById(currentUser.id);
+  const user = await getProfile();
 
   return (
     <DashboardShell>

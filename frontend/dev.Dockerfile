@@ -15,5 +15,4 @@ RUN \
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN npx prisma generate
 CMD yarn dev

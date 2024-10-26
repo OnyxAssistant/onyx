@@ -19,7 +19,6 @@
       }
     ],
     "paths": {
-      "@/*": ["./neurons/**/frontend/src/*"],
       "*": ["./frontend/node_modules/*"],
       "@onyx/*": ["./frontend/core/*"],
     }
