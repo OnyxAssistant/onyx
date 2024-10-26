@@ -17,13 +17,13 @@ export const authOptions: NextAuthOptions = {
     EmailProvider({
       sendVerificationRequest: async ({ identifier, url }) => {
         const adapter = AuthRestAdapter();
-        const user = await adapter.getUserByEmail(identifier);
+        const user = await adapter?.getUserByEmail?.(identifier);
 
         const userVerified = user?.emailVerified ? true : false;
         const authSubject = userVerified ? "Sign-in link for Onyx" : "Activate your account";
 
         try {
-          const { data, error } = await resend.emails.send({
+          const { data, error } = await resend?.emails.send({
             from: 'Acme <onboarding@resend.dev>',
             to: 'delivered@resend.dev',
             subject: authSubject,
@@ -37,8 +37,8 @@ export const authOptions: NextAuthOptions = {
             headers: {
               'X-Entity-Ref-ID': new Date().getTime() + "",
             },
-          });
-
+          }) || {};
+    
           if (error || !data) {
             throw new Error(error?.message)
           }
@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, user }) {
       const adapter = AuthRestAdapter();
-      const dbUser = await adapter?.getUserByEmail(token.email as string);
+      const dbUser = await adapter?.getUserByEmail?.(token.email as string);
 
       if (!dbUser) {
         if (user) {

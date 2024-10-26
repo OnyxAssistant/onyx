@@ -47,7 +47,7 @@ import {
 import Icons from "@onyx/ui/icons";
 
 export function OnyxSidebar({ user }: { user: any }) {
-  const defaultNav: Neuron = {
+  const defaultNav: any = {
     slug: "onyx",
     name: "Onyx",
     description: "The default neuron",
@@ -67,7 +67,7 @@ export function OnyxSidebar({ user }: { user: any }) {
       },
     ],
   };
-  const [neurons, setNeurons] = useState<Neuron[]>([]);
+  const [neurons, setNeurons] = useState<any[]>([]);
   const [activeNeuron, setActiveNeuron] = useState(defaultNav);
 
 
@@ -105,7 +105,7 @@ export function OnyxSidebar({ user }: { user: any }) {
                 {neurons.map((neuron, index) => (
                   <DropdownMenuItem
                     key={neuron.slug}
-                    onClick={() => handleSetActiveNeuron(neuron)}
+                    onClick={() => {}}
                     className="gap-2 p-2"
                   >
                     {neuron.name}
@@ -132,7 +132,7 @@ export function OnyxSidebar({ user }: { user: any }) {
         <SidebarGroup>
           <SidebarGroupLabel>{activeNeuron.name}</SidebarGroupLabel>
           <SidebarMenu>
-            {activeNeuron.nav.map((item) => (
+            {activeNeuron.nav.map((item: any) => (
               <Collapsible key={item.title} asChild defaultOpen={true}>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild tooltip={item.title}>
@@ -157,7 +157,7 @@ export function OnyxSidebar({ user }: { user: any }) {
                       </CollapsibleTrigger>
                       <CollapsibleContent>
                         <SidebarMenuSub>
-                          {item.items?.map((subItem) => (
+                          {item.items?.map((subItem: any) => (
                             <SidebarMenuSubItem key={subItem.title}>
                               <SidebarMenuSubButton asChild>
                                 <Link href={subItem.url}>

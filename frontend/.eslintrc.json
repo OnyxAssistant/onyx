@@ -13,6 +13,7 @@
     "tailwindcss/no-unnecessary-arbitrary-value": "off",
     "tailwindcss/no-contradicting-classname": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": "off"
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-empty-object-type": "off"
   }
 }

@@ -6,7 +6,7 @@ class Api {
 
   constructor() {
     this.client = axios.create({
-      baseURL: process.env.BACKEND_ADDRESS,
+      baseURL: "http://onyx-backend:5000",
       headers: {
         'Content-Type': 'application/json',
       },

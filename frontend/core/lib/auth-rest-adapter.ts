@@ -3,7 +3,7 @@ import { Adapter, AdapterAccount, AdapterSession, AdapterUser, VerificationToken
 
 export function AuthRestAdapter(): Adapter {
   const client = axios.create({
-    baseURL: `${process.env.BACKEND_ADDRESS}/auth`,
+    baseURL: `http://onyx-backend:5000/auth`,
     headers: {
       'Content-Type': 'application/json',
       'x-auth-secret': process.env.NEXTAUTH_SECRET || ''

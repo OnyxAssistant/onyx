@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN rm -rf ./src
 RUN rm -rf ./node_modules
 
 RUN yarn install
+RUN yarn build
 
-CMD yarn dev
+CMD yarn start
