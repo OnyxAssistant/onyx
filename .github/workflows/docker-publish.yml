@@ -29,6 +29,7 @@ jobs:
         push: true
         tags: onyxassistant/onyx:dev
         target: development
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
 
     - name: Build and push onyx:latest
       uses: docker/build-push-action@v5
@@ -36,3 +37,4 @@ jobs:
         context: .
         push: true
         tags: onyxassistant/onyx:latest
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
