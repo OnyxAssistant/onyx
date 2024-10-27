@@ -13,7 +13,7 @@ services:
       - onyx-network
   onyx:
     container_name: onyx
-    image: onyx
+    image: onyxassistant/onyx
     env_file:
       - .env
     networks:

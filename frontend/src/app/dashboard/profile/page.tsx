@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getProfile } from "@onyx/api/user";
 
-import { DashboardHeader, DashboardShell } from "@onyx/ui";
+import { DashboardShell } from "@onyx/ui";
 import { ProfileForm } from "@/components/forms/profile-form";
 import { UserProfile } from "@onyx/types/user";
 import { constructMetadata } from "@onyx/utils/metadata";
@@ -22,11 +22,7 @@ export default async function SettingsPage() {
   const user = await getProfile();
 
   return (
-    <DashboardShell>
-      <DashboardHeader
-        heading="Profile"
-        text="Manage your profile"
-      />
+    <DashboardShell heading="Profile" text="Manage your profile">
       <div className="grid gap-10">
         <ProfileForm user={user as UserProfile} />
       </div>

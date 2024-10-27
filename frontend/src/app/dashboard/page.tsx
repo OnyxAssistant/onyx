@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { Card, CardHeader, CardTitle, CardContent, DashboardHeader, DashboardShell } from "@onyx/ui";
+import { Card, CardHeader, CardTitle, CardContent, DashboardShell } from "@onyx/ui";
 import Dashboard from "@/components/dashboard/main";
 import { constructMetadata } from "@onyx/utils/metadata";
 import { getCurrentUser } from "@onyx/lib/session";
@@ -18,8 +18,7 @@ export default async function DashboardPage() {
 
 
   return (
-    <DashboardShell>
-      <DashboardHeader heading="Dashboard" text="Manage your dashboard"></DashboardHeader>
+    <DashboardShell heading="Dashboard" text="Manage your dashboard">
       <Card>
         <CardHeader>
           <CardTitle>Dashboard</CardTitle>
