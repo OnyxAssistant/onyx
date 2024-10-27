@@ -11,33 +11,49 @@ services:
       - ./data:/var/lib/postgresql/data
     networks:
       - onyx-network
-  frontend:
-    container_name: onyx-frontend
+  onyx:
+    container_name: onyx
     build:
-      context: ./frontend
-      dockerfile: dev.Dockerfile
-    volumes:
-      - ./frontend/src:/app/src
-      - ./frontend/core:/app/core
-    env_file:
-      - .env
-    networks:
-      - onyx-network
-    ports:
-      - '3000:3000'
-  backend:
-    container_name: onyx-backend
-    build:
-      context: ./backend
-      dockerfile: dev.Dockerfile
+      context: .
+      target: development
+      dockerfile: Dockerfile
+    environment:
+      - APP_MODE=development
     env_file:
       - .env
     volumes:
-      - ./backend/src:/app/src
+      - ./backend/src:/app/backend/src
+      - ./frontend/src:/app/frontend/src
+      - ./frontend/core:/app/frontend/core
     networks:
       - onyx-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+      - "traefik.http.routers.backend.rule=Host(`api.${DOMAIN}`)"
+      - "traefik.http.services.backend.loadbalancer.server.port=5000"
+      - "traefik.http.routers.frontend.service=frontend"
+      - "traefik.http.routers.backend.service=backend"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+      - "traefik.http.services.backend.loadbalancer.server.port=5000"
+  onyx-proxy:
+    image: traefik:v2.5
+    container_name: onyx-proxy
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
     ports:
-      - '5000:5000'
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - onyx-network
+    labels:
+      - "traefik.enable=true"
 
 networks:
   onyx-network:
