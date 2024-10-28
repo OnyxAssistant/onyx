@@ -1,35 +1,30 @@
-FROM node:18-alpine AS development
-
+FROM node:18-alpine AS base
 WORKDIR /gateway
 
-COPY package.json ./
-COPY yarn.lock ./
-
-RUN yarn install
-
-COPY . .
-
-RUN yarn prisma:generate
-
-CMD ["yarn", "start:dev"]
-
-FROM node:18-alpine AS build
-
-WORKDIR /gateway
+FROM base AS deps
 
 COPY package.json ./
 COPY yarn.lock ./
 
 RUN yarn install --immutable --immutable-cache --check-cache
 
+FROM deps AS build
+
 COPY . .
 
 RUN yarn prisma:generate
 RUN yarn build
 
-FROM build AS production
+FROM base AS development
 
-WORKDIR /gateway
+COPY --from=deps /gateway/node_modules /gateway/node_modules
+COPY . .
+
+RUN yarn prisma:generate
+
+CMD ["yarn", "start:dev"]
+
+FROM base AS production
 
 COPY --from=build /gateway/dist ./dist
 COPY --from=build /gateway/node_modules ./node_modules
