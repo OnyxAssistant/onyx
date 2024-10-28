@@ -22,19 +22,19 @@ jobs:
         username: onyxassistant
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-    - name: Build and push onyx:dev
+    - name: Build and push onyx-gateway
       uses: docker/build-push-action@v5
       with:
-        context: .
+        context: gateway
         push: true
-        tags: onyxassistant/onyx:dev
+        tags: onyxassistant/onyx-gateway
         target: development
         platforms: linux/amd64,linux/arm64
 
-    - name: Build and push onyx:latest
+    - name: Build and push onyx-web
       uses: docker/build-push-action@v5
       with:
-        context: .
+        context: web
         push: true
-        tags: onyxassistant/onyx:latest
+        tags: onyxassistant/onyx-web
         platforms: linux/amd64,linux/arm64

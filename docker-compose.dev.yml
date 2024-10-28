@@ -1,5 +1,5 @@
 services:
-  db:
+  onyx-db:
     image: 'postgres:13'
     container_name: onyx-db
     restart: always
@@ -11,35 +11,57 @@ services:
       - ./data:/var/lib/postgresql/data
     networks:
       - onyx-network
-  onyx:
-    container_name: onyx
+  onyx-gateway:
+    container_name: onyx-gateway
+    restart: always
     build:
-      context: .
+      context: ./gateway
       target: development
       dockerfile: Dockerfile
-    environment:
-      - APP_MODE=development
     env_file:
       - .env
     volumes:
-      - ./backend/src:/app/backend/src
-      - ./frontend/src:/app/frontend/src
-      - ./frontend/core:/app/frontend/core
+      - ./gateway/src:/gateway/src
+    depends_on:
+      - onyx-queue
+      - onyx-db
     networks:
       - onyx-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`${DOMAIN}`)"
-      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
-      - "traefik.http.routers.backend.rule=Host(`api.${DOMAIN}`)"
-      - "traefik.http.services.backend.loadbalancer.server.port=5000"
-      - "traefik.http.routers.frontend.service=frontend"
-      - "traefik.http.routers.backend.service=backend"
-      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
-      - "traefik.http.services.backend.loadbalancer.server.port=5000"
+      - "traefik.http.routers.gateway.rule=Host(`api.${DOMAIN}`)"
+      - "traefik.http.services.gateway.loadbalancer.server.port=5000"
+      - "traefik.http.routers.gateway.service=gateway"
+  onyx-web:
+    container_name: onyx-web
+    restart: always
+    build:
+      context: ./web
+      target: development
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./web/src:/web/src
+      - ./web/public:/web/public
+      - ./web/core:/web/core
+    networks:
+      - onyx-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.services.web.loadbalancer.server.port=3000"
+      - "traefik.http.routers.web.service=web"
+  onyx-queue:
+    image: rabbitmq
+    container_name: 'onyx-queue'
+    restart: always
+    networks:
+      - onyx-network
   onyx-proxy:
     image: traefik:v2.5
     container_name: onyx-proxy
+    restart: always
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
@@ -59,3 +81,4 @@ networks:
   onyx-network:
     name: onyx-network
     external: true
+    driver: bridge

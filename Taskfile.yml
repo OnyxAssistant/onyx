@@ -1,16 +1,11 @@
 version: "3"
 
 tasks:
-  build-docker:
+  build:
     desc: "Build the docker images"
     cmds:
-      - cd backend && docker build -t onyx-backend -f Dockerfile .
-      - cd frontend && docker build -t onyx-frontend -f Dockerfile .
-
-  build-docker-dev:
-    desc: "Build the docker images"
-    cmds:
-      - docker compose -f docker-compose.dev.yml build
+      - cd gateway && docker build -t onyxassistant/onyx-gateway .
+      - cd web && docker build -t onyxassistant/onyx-web .
 
   dev:
     desc: "Run the docker images"
