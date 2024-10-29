@@ -7,10 +7,10 @@ import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { cn } from "@onyx/ui/lib/utils";
-import { userAuthSchema } from "@onyx/lib/validations/auth";
-import { buttonVariants, Input, Label, toast } from "@onyx/ui";
-import Icons from "@onyx/ui/icons";
+import { cn } from "@/lib/utils";
+import { userAuthSchema } from "@/lib/validations/auth";
+import { buttonVariants, Input, Label, toast } from "@/components";
+import Icons from "@/components/icons";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 

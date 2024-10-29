@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@onyx/ui/assets/img/logo.png";
-import logo_white from "@onyx/ui/assets/img/logo_white.png";
+import logo from "@/assets/img/logo.png";
+import logo_white from "@/assets/img/logo_white.png";
 import { useTheme } from "next-themes";
-import { Button } from "@onyx/ui";
+import { Button } from "@/components";
 
 export default function Home() {
   const { theme } = useTheme();

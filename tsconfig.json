@@ -20,7 +20,7 @@
     ],
     "paths": {
       "*": ["./web/node_modules/*"],
-      "@onyx/*": ["./web/core/*"],
+      "@/*": ["./web/core/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

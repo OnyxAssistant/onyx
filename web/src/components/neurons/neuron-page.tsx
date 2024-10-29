@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState, Suspense } from "react"
-import OnyxSDK from "@onyx/sdk"
+import OnyxSDK from "@/sdk"
 
 interface NeuronPageProps {
   neuron: {

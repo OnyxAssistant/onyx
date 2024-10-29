@@ -1,7 +1,11 @@
-import { Card, CardHeader, CardTitle, CardContent, DashboardShell } from "@onyx/ui";
+import { Card, CardHeader, CardTitle, CardContent, DashboardShell } from "@/components";
+import Dashboard from "@/components/dashboard/main";
+import { getCurrentUser } from "@/lib/session";
 
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const currentUser = await getCurrentUser();
+
   return (
     <DashboardShell heading="Dashboard" text="Manage your dashboard">
       <Card>
@@ -9,7 +13,7 @@ export default function DashboardPage() {
           <CardTitle>Dashboard</CardTitle>
         </CardHeader>
         <CardContent>
-          
+          <Dashboard currentUser={currentUser} />
         </CardContent>
       </Card>
     </DashboardShell>

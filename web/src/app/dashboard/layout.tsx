@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
-import { getCurrentUser } from "@onyx/lib/session";
-import DashboardLayout from "@onyx/ui/components/dashboard/layout";
+import { getCurrentUser } from "@/lib/session";
+import DashboardLayout from "@/components/dashboard/layout";
 
 interface DashboardLayoutProps {
   children?: React.ReactNode;

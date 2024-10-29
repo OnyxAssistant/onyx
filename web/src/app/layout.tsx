@@ -1,12 +1,12 @@
-import "@onyx/ui/styles/globals.css";
+import "@/styles/globals.css";
 
 import type { Viewport } from "next";
-import { fontHeading, fontSans, fontUrban } from "@onyx/ui/assets/fonts";
+import { fontHeading, fontSans, fontUrban } from "@/assets/fonts";
 import { ThemeProvider } from "next-themes";
-import { constructMetadata } from "@onyx/utils/metadata";
-import { cn } from "@onyx/ui/lib/utils";
-import { Toaster } from "@onyx/ui";
-import { api } from "@onyx/api";
+import { constructMetadata } from "@/utils/metadata";
+import { cn } from "@/lib/utils";
+import { Toaster } from "@/components";
+import { api } from "@/api";
 import { ImportNeuron } from "@/components/neurons/import-neuron";
 
 interface RootLayoutProps {

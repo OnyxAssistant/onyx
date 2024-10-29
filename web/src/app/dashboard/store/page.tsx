@@ -1,6 +1,6 @@
 import { StoreForm } from '@/components/forms/store-form'
-import { constructMetadata } from "@onyx/utils/metadata";
-import { Card, CardHeader, CardTitle, CardContent, DashboardShell } from "@onyx/ui"
+import { constructMetadata } from "@/utils/metadata";
+import { Card, CardHeader, CardTitle, CardContent, DashboardShell } from "@/components"
 
 export const metadata = constructMetadata({
   title: "Neuron Store",

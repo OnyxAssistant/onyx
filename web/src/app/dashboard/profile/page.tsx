@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
-import { getProfile } from "@onyx/api/user";
+import { getProfile } from "@/api/user";
 
-import { DashboardShell } from "@onyx/ui";
+import { DashboardShell } from "@/components";
 import { ProfileForm } from "@/components/forms/profile-form";
-import { UserProfile } from "@onyx/types/user";
-import { constructMetadata } from "@onyx/utils/metadata";
-import { getCurrentUser } from "@onyx/lib/session";
+import { UserProfile } from "@/types/user";
+import { constructMetadata } from "@/utils/metadata";
+import { getCurrentUser } from "@/lib/session";
 
 export const metadata = constructMetadata({
   title: "Profile",

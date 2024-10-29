@@ -4,8 +4,8 @@ import { useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
-import { cn } from "@onyx/ui/lib/utils"
-import { userProfileSchema } from "@onyx/lib/validations/user"
+import { cn } from "@/lib/utils"
+import { userProfileSchema } from "@/lib/validations/user"
 import {
   Card,
   CardContent,
@@ -18,11 +18,11 @@ import {
   Input,
   Label,
   toast,
-} from "@onyx/ui"
-import { UserProfile } from "@onyx/types/user";
-import Icons from "@onyx/ui/icons"
+} from "@/components"
+import { UserProfile } from "@/types/user";
+import Icons from "@/components/icons"
 
-import { updateUserProfile, type FormData } from "@onyx/actions/user/update-user-profile"
+import { updateUserProfile, type FormData } from "@/actions/user/update-user-profile"
 
 export function ProfileForm({ user }: { user: UserProfile }) {
   const [isPending, startTransition] = useTransition();

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Button, Input } from "@onyx/ui"
+import { Button, Input } from "@/components"
 
 export function StoreForm() {
   const [githubUrl, setGithubUrl] = useState('')

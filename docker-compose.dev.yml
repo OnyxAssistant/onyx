@@ -44,7 +44,6 @@ services:
     volumes:
       - ./web/src:/web/src
       - ./web/public:/web/public
-      - ./web/core:/web/core
     networks:
       - onyx-network
     labels:

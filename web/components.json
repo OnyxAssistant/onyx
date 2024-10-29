@@ -11,8 +11,8 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@onyx/ui/components",
-    "utils": "@onyx/ui/lib/utils",
-    "hooks": "@onyx/ui/hooks"
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "hooks": "@/hooks"
   }
 }

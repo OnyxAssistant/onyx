@@ -1,4 +1,4 @@
-import { api } from '@onyx/api'
+import { api } from '@/api'
 import { NeuronPage as NeuronPageComponent } from '@/components/neurons/neuron-page'
 
 interface Neuron {
