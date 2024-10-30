@@ -19,6 +19,9 @@ services:
       - .env
     networks:
       - onyx-network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./neurons:/neurons
     depends_on:
       onyx-queue:
         condition: service_healthy

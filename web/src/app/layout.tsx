@@ -8,13 +8,10 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "@/components";
 import { api } from "@/api";
 import { ImportNeuron } from "@/components/neurons/import-neuron";
+import { Neuron } from "@/types/neuron";
 
 interface RootLayoutProps {
   children: React.ReactNode;
-}
-
-interface Neuron {
-  name: string;
 }
 
 export const metadata = constructMetadata();
@@ -28,7 +25,7 @@ export const viewport: Viewport = {
 };
 
 export default async function RootLayout({ children }: RootLayoutProps) {
-  const neurons = await api.get<Neuron[]>("/get-neurons");
+  const neurons = await api.get<Neuron[]>("/neurons");
   
   return (
     <html lang="en" suppressHydrationWarning>

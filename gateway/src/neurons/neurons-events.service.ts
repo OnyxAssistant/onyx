@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
-export class NeuronsEventsService {
+export class NeuronsEventsService implements OnModuleInit {
   constructor(private readonly amqpConnection: AmqpConnection) {}
 
   async emitUserConnected(user: any) {
@@ -15,5 +15,16 @@ export class NeuronsEventsService {
     } catch (error) {
       console.error('Failed to emit user connected event:', error);
     }
+  }
+
+  async onModuleInit() {
+    console.log('Emitting ask for discovery event');
+    await this.amqpConnection.publish(
+      'neuron.events',
+      'neuron.ask_for_discovery',
+      {
+        timestamp: new Date(),
+      },
+    );
   }
 }

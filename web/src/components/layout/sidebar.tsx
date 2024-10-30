@@ -44,30 +44,34 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import { Neuron } from "@/types/neuron";
 import Icons from "@/components/icons";
 
-export function OnyxSidebar({ user }: { user: any }) {
+export function OnyxSidebar({ user, neurons }: { user: any, neurons: Neuron[] }) {
   const defaultNav: any = {
-    slug: "onyx",
-    name: "Onyx",
-    description: "The default neuron",
-    url: "/dashboard/neuron",
-    nav: [
-      {
-        title: "Dashboard",
-        url: "/dashboard",
-        icon: "home",
-        items: [],
-      },
-      {
-        title: "Store",
-        url: "/dashboard/store",
-        icon: "store",
-        items: [],
-      },
-    ],
+    manifest: {
+      slug: "onyx",
+      name: "Onyx",
+      description: "The default neuron",
+      url: "/dashboard/neuron",
+      nav: [
+        {
+          title: "Dashboard",
+          url: "/dashboard",
+          icon: "home",
+          items: [],
+        },
+        {
+          title: "Store",
+          url: "/dashboard/store",
+          icon: "store",
+          items: [],
+        },
+      ],
+    },
+   
   };
-  const [neurons, setNeurons] = useState<any[]>([]);
+  const allNeurons = [defaultNav, ...neurons];
   const [activeNeuron, setActiveNeuron] = useState(defaultNav);
 
 
@@ -87,7 +91,7 @@ export function OnyxSidebar({ user }: { user: any }) {
                   </div>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold">
-                      {activeNeuron.name}
+                      {activeNeuron.manifest.name}
                     </span>
                   </div>
                   <ChevronsUpDown className="ml-auto" />
@@ -102,13 +106,13 @@ export function OnyxSidebar({ user }: { user: any }) {
                 <DropdownMenuLabel className="text-xs text-muted-foreground">
                   Neurons
                 </DropdownMenuLabel>
-                {neurons.map((neuron, index) => (
+                {allNeurons.map((neuron, index) => (
                   <DropdownMenuItem
-                    key={neuron.slug}
-                    onClick={() => {}}
+                    key={neuron.manifest.slug}
+                    onClick={() => setActiveNeuron(neuron)}
                     className="gap-2 p-2"
                   >
-                    {neuron.name}
+                    {neuron.manifest.name}
                     <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
                   </DropdownMenuItem>
                 ))}
@@ -130,9 +134,9 @@ export function OnyxSidebar({ user }: { user: any }) {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>{activeNeuron.name}</SidebarGroupLabel>
+          <SidebarGroupLabel>{activeNeuron.manifest.name}</SidebarGroupLabel>
           <SidebarMenu>
-            {activeNeuron.nav.map((item: any) => (
+            {activeNeuron.manifest.nav.map((item: any) => (
               <Collapsible key={item.title} asChild defaultOpen={true}>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild tooltip={item.title}>

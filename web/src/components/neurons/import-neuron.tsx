@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 interface ImportNeuronProps {
   neurons: {
-    name: string
+    manifest: any
   }[]
 }
 
@@ -13,13 +13,13 @@ export function ImportNeuron({ neurons }: ImportNeuronProps) {
     neurons.forEach((neuron) => {
       import(
         /* webpackIgnore: true */
-        `http://api.onyx.local/frontend/${neuron.name}/script.js`
+        `http://api.onyx.local/frontend/${neuron.manifest.slug}/script.js`
       ).then((module) => {
         if (module) {
-          console.log(`Loaded ${neuron.name}`)
+          console.log(`Loaded ${neuron.manifest.name}`)
         }
       }).catch(err => {
-        console.error(`Failed to load ${neuron.name}:`, err)
+        console.error(`Failed to load ${neuron.manifest.name}:`, err)
       })
     })
   }, [neurons])

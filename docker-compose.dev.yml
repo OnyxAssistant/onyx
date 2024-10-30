@@ -18,13 +18,16 @@ services:
       context: ./gateway
       target: development
       dockerfile: Dockerfile
+    privileged: true
     env_file:
       - .env
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
       - ./gateway/src:/gateway/src
+      - ./neurons:/neurons
     depends_on:
-      - onyx-queue
-      - onyx-db
+      onyx-queue:
+        condition: service_healthy
     networks:
       - onyx-network
     labels:
@@ -55,6 +58,11 @@ services:
     image: rabbitmq
     container_name: 'onyx-queue'
     restart: always
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     networks:
       - onyx-network
   onyx-proxy:

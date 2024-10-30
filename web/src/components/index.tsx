@@ -3,6 +3,9 @@ import "../styles/globals.css";
 // Dashboard
 export * from "./dashboard/shell";
 
+// Shared
+export * from "./shared/loader";
+
 // Shadcn
 export * from "./ui/button";
 export * from "./ui/accordion";

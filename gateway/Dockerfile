@@ -1,6 +1,8 @@
 FROM node:18-alpine AS base
 WORKDIR /gateway
 
+RUN apk update && apk add docker git docker-compose
+
 FROM base AS deps
 
 COPY package.json ./
