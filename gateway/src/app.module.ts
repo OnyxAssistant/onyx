@@ -8,6 +8,7 @@ import { UserMiddleware } from '@/middlewares/user.middleware';
 import { NeuronFrontendMiddleware } from '@/middlewares/neuron-frontend.middleware';
 import { NeuronsModule } from './neurons/neurons.module';
 import { AuthModule } from '@/api/auth/auth.module';
+import { NeuronModule } from './api/neuron/neuron.module';
 
 
 @Module({
@@ -15,6 +16,7 @@ import { AuthModule } from '@/api/auth/auth.module';
     UserModule,
     UsersModule,
     AuthModule,
+    NeuronModule,
     NeuronsModule,
   ],
   controllers: [AppController],
@@ -26,7 +28,7 @@ export class AppModule implements NestModule {
     consumer
       .apply(UserMiddleware)
       .exclude('auth')
-      .forRoutes('user');
+      .forRoutes('user', 'neuron');
     consumer
       .apply(AuthMiddleware)
       .forRoutes('auth');

@@ -1,5 +1,8 @@
 import "../styles/globals.css";
 
+// Icons
+export * as Icons from "./icons";
+
 // Dashboard
 export * from "./dashboard/shell";
 
@@ -23,9 +26,11 @@ export * from "./ui/progress";
 export * from "./ui/radio-group";
 export * from "./ui/select";
 export * from "./ui/separator";
+export * from "./ui/scroll-area";
 export * from "./ui/slider";
 export * from "./ui/switch";
 export * from "./ui/tabs";
+export * from "./ui/table";
 export * from "./ui/textarea";
 export * from "./ui/toast";
 export * from "./ui/use-toast";

@@ -1,5 +1,4 @@
 import * as ui from '@/components'
+import api from '@/api/client'
 
-const OnyxSDK = { ui }
-
-export default OnyxSDK
+export default { ui, api }

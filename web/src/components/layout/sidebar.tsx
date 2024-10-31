@@ -51,7 +51,7 @@ export function OnyxSidebar({ user, neurons }: { user: any, neurons: Neuron[] })
   const defaultNav: any = {
     manifest: {
       slug: "onyx",
-      name: "Onyx",
+      name: "Onyx", 
       description: "The default neuron",
       url: "/dashboard/neuron",
       nav: [
@@ -69,11 +69,31 @@ export function OnyxSidebar({ user, neurons }: { user: any, neurons: Neuron[] })
         },
       ],
     },
-   
   };
+
   const allNeurons = [defaultNav, ...neurons];
+  
+  // Get initial active neuron from cookie or default
+  const getInitialNeuron = () => {
+    const savedSlug = document.cookie.split('; ').find(row => row.startsWith('activeSidebar='));
+    if (savedSlug) {
+      const slug = savedSlug.split('=')[1];
+      const savedNeuron = allNeurons.find(n => n.manifest.slug === slug);
+      return savedNeuron || defaultNav;
+    }
+    return defaultNav;
+  };
+
   const [activeNeuron, setActiveNeuron] = useState(defaultNav);
 
+  useEffect(() => {
+    setActiveNeuron(getInitialNeuron());
+  }, []);
+
+  const handleNeuronChange = (neuron: any) => {
+    setActiveNeuron(neuron);
+    document.cookie = `activeSidebar=${neuron.manifest.slug};path=/;max-age=31536000`;
+  };
 
   return (
     <Sidebar collapsible="icon" variant="floating">
@@ -109,7 +129,7 @@ export function OnyxSidebar({ user, neurons }: { user: any, neurons: Neuron[] })
                 {allNeurons.map((neuron, index) => (
                   <DropdownMenuItem
                     key={neuron.manifest.slug}
-                    onClick={() => setActiveNeuron(neuron)}
+                    onClick={() => handleNeuronChange(neuron)}
                     className="gap-2 p-2"
                   >
                     {neuron.manifest.name}
